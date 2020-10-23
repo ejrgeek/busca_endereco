@@ -1,7 +1,13 @@
-# busca_endereco
+# Busca Endereço
 
-A new Flutter project.
+Atividade avaliativa de Programação para Dispositivos Móveis
+Escopo aberto para a atividade: [Exercicio 08 - Busca CEP](https://github.com/ejrgeek/busca_endereco/blob/main/Exercicio%2008%20-%20Busca%20CEP.pdf)
 
+Execute o comando: *flutter pub get* e depois rode a aplicação
+
+Foi usado [Mobx](https://pub.dev/packages/mobx) para gerenciamento de estado, [Modular e Slidy](https://medium.com/flutterando/introdu%C3%A7%C3%A3o-ao-modular-x-slidy-9577bdca2)
+
+---
 ## Getting Started
 
 This project is a starting point for a Flutter application.
