@@ -4,7 +4,7 @@ import 'package:busca_endereco/app/models/endereco_model.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class EnderecoRepository {
-  static String enderecoLista = 'key_list';
+  static String _enderecoLista = 'key_list';
 
   Future<SharedPreferences> instance() async {
     return await SharedPreferences.getInstance();
@@ -16,12 +16,12 @@ class EnderecoRepository {
 
     enderecos.forEach((endereco) => lista.add(json.encode(endereco)));
 
-    instancia.setStringList(enderecoLista, lista);
+    instancia.setStringList(_enderecoLista, lista);
   }
 
   Future<List<EnderecoModel>> lerEnderecos() async {
     SharedPreferences instancia = await instance();
-    List<String> stringEnderecos = instancia.getStringList(enderecoLista);
+    List<String> stringEnderecos = instancia.getStringList(_enderecoLista);
 
     List<EnderecoModel> enderecos = List<EnderecoModel>();
 

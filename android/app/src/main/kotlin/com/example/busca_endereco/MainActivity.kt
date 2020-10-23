@@ -1,4 +1,4 @@
-package com.example.busca_endereco
+package com.ejrgeekio.busca_endereco
 
 import io.flutter.embedding.android.FlutterActivity
 
