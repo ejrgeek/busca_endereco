@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
 class EnderecoApi {
-  String baseUrl = 'https://viacep.com.br/ws';
+  String _baseUrl = 'https://viacep.com.br/ws';
 
   Future<List<EnderecoModel>> getEnderecos({
     @required uf,
@@ -14,7 +14,7 @@ class EnderecoApi {
     @required logradouro,
   }) async {
     try {
-      String urlService = '$baseUrl/$uf/$cidade/$logradouro';
+      String urlService = '$_baseUrl/$uf/$cidade/$logradouro';
       final http.Response response = await http.get(urlService);
 
       if (response.statusCode == 200) {
