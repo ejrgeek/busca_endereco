@@ -1,3 +1,5 @@
+import 'package:busca_endereco/app/modules/splashscreen/splashscreen_module.dart';
+
 import 'app_controller.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:flutter/material.dart';
@@ -12,7 +14,8 @@ class AppModule extends MainModule {
 
   @override
   List<ModularRouter> get routers => [
-        ModularRouter(Modular.initialRoute, module: HomeModule()),
+        ModularRouter(Modular.initialRoute, module: SplashscreenModule()),
+        ModularRouter('/home', module: HomeModule()),
       ];
 
   @override
