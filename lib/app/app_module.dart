@@ -1,3 +1,4 @@
+import 'package:busca_endereco/app/modules/endereco_list_view/endereco_list_view_module.dart';
 import 'package:busca_endereco/app/modules/splashscreen/splashscreen_module.dart';
 
 import 'app_controller.dart';
@@ -16,6 +17,7 @@ class AppModule extends MainModule {
   List<ModularRouter> get routers => [
         ModularRouter(Modular.initialRoute, module: SplashscreenModule()),
         ModularRouter('/home', module: HomeModule()),
+        ModularRouter('/lista_enderecos', module: EnderecoListViewModule()),
       ];
 
   @override

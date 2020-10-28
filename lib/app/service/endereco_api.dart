@@ -14,7 +14,7 @@ class EnderecoApi {
     @required logradouro,
   }) async {
     try {
-      String urlService = '$_baseUrl/$uf/$cidade/$logradouro';
+      String urlService = '$_baseUrl/$uf/$cidade/$logradouro/json/';
       final http.Response response = await http.get(urlService);
 
       if (response.statusCode == 200) {

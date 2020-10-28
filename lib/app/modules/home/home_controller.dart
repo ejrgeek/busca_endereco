@@ -1,7 +1,6 @@
 import 'package:busca_endereco/app/models/endereco_model.dart';
 import 'package:busca_endereco/app/service/endereco_api.dart';
 import 'package:flutter/foundation.dart';
-import 'package:http/http.dart';
 import 'package:mobx/mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
@@ -37,8 +36,13 @@ abstract class _HomeControllerBase with Store {
   }
 
   @action
-  Future<List<EnderecoModel>> search({@required estado, @required cidade, @required logradouro}) async {
+  Future<bool> search(
+      {@required estado, @required cidade, @required logradouro}) async {
     String uf = getUF(estado);
+
+    //* POSSIBILITA O USO DA LISTA NA PAGINA, 
+    //* MAS COMO PREFERI USAR OUTRO MODULO
+    //* PARA MOSTRAR A LISTA, FICA PARA MOSTRAR COMO SERIA
 
     try {
       listaEnderecos = await EnderecoApi().getEnderecos(
@@ -46,9 +50,9 @@ abstract class _HomeControllerBase with Store {
         cidade: cidade,
         logradouro: logradouro,
       );
-      return listaEnderecos;
+      return listaEnderecos.length > 0 ? true : false;
     } catch (e) {
-      return List<EnderecoModel>.empty();
+      return false;
     }
   }
 }

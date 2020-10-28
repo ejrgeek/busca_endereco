@@ -11,12 +11,16 @@ class EnderecoRepository {
   }
 
   salvaEnderecos(List<EnderecoModel> enderecos) async {
-    SharedPreferences instancia = await instance();
-    List lista = List();
+    try {
+      SharedPreferences instancia = await instance();
+      List<String> lista = List<String>();
 
-    enderecos.forEach((endereco) => lista.add(json.encode(endereco)));
+      enderecos.forEach((endereco) => lista.add(json.encode(endereco)));
 
-    instancia.setStringList(_enderecoLista, lista);
+      instancia.setStringList(_enderecoLista, lista);
+    } catch (e) {
+      print('\n\nERRO SALVAR: $e\n\n');
+    }
   }
 
   Future<List<EnderecoModel>> lerEnderecos() async {
@@ -25,11 +29,8 @@ class EnderecoRepository {
 
     List<EnderecoModel> enderecos = List<EnderecoModel>();
 
-    stringEnderecos.forEach(
-      (endereco) => enderecos.add(
-        EnderecoModel.fromJson(jsonDecode(endereco))
-      )
-    );
+    stringEnderecos.forEach((endereco) =>
+        enderecos.add(EnderecoModel.fromJson(jsonDecode(endereco))));
 
     return enderecos;
   }
