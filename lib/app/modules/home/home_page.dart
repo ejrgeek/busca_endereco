@@ -1,3 +1,4 @@
+import 'package:busca_endereco/app/repository/endereco_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'home_controller.dart';
@@ -17,6 +18,7 @@ class _HomePageState extends ModularState<HomePage, HomeController> {
 
   TextEditingController _cidade = TextEditingController();
   TextEditingController _log = TextEditingController();
+  String _estado = '';
 
   GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
@@ -24,7 +26,18 @@ class _HomePageState extends ModularState<HomePage, HomeController> {
   bool _iconButton = false;
   Widget _loader = CircularProgressIndicator();
 
-  String _estado;
+
+  initValues() async {
+    _cidade.text = await EnderecoRepository().getCidade() ?? '';
+    _log.text = await EnderecoRepository().getLog() ?? '';
+    _estado = await EnderecoRepository().getEstado() ?? '';
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    initValues();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -41,7 +54,7 @@ class _HomePageState extends ModularState<HomePage, HomeController> {
           children: [
             //
             Container(
-              padding: EdgeInsets.symmetric(horizontal: 10, vertical: 15),
+              padding: EdgeInsets.symmetric(horizontal: 15, vertical: 15),
               width: double.infinity,
               child: DropdownButton<String>(
                 isExpanded: true,
@@ -58,7 +71,7 @@ class _HomePageState extends ModularState<HomePage, HomeController> {
                     );
                   },
                 ).toList(),
-                value: _estado,
+                value: _estado.length > 0 ? _estado : null,
                 onChanged: (value) {
                   setState(() {
                     _estado = value;
@@ -68,7 +81,7 @@ class _HomePageState extends ModularState<HomePage, HomeController> {
             ),
             //
             Container(
-              padding: EdgeInsets.symmetric(horizontal: 10, vertical: 15),
+              padding: EdgeInsets.symmetric(horizontal: 15, vertical: 15),
               child: TextFormField(
                 decoration: InputDecoration(labelText: 'Digite uma cidade'),
                 keyboardType: TextInputType.text,
@@ -86,9 +99,11 @@ class _HomePageState extends ModularState<HomePage, HomeController> {
             ),
             //
             Container(
-              padding: EdgeInsets.symmetric(horizontal: 10, vertical: 15),
+              padding: EdgeInsets.symmetric(horizontal: 15, vertical: 15),
               child: TextFormField(
-                decoration: InputDecoration(labelText: 'Digite um logradouro'),
+                decoration: InputDecoration(
+                  labelText: 'Digite um logradouro',
+                ),
                 keyboardType: TextInputType.text,
                 controller: _log,
                 // ignore: missing_return
@@ -104,11 +119,7 @@ class _HomePageState extends ModularState<HomePage, HomeController> {
             ),
             //
             Container(
-              padding: EdgeInsets.only(
-                top: 10,
-                left: 10,
-                right: 10,
-              ),
+              padding: EdgeInsets.symmetric(vertical: 10, horizontal: 15),
               width: MediaQuery.of(context).size.width,
               height: 60,
               child: RaisedButton.icon(
@@ -122,6 +133,10 @@ class _HomePageState extends ModularState<HomePage, HomeController> {
                 ),
                 onPressed: () async {
                   if (_formKey.currentState.validate() && _estado != null) {
+                    EnderecoRepository().salvaLog(_log.text);
+                    EnderecoRepository().salvaCidade(_cidade.text);
+                    EnderecoRepository().salvaEstado(_estado);
+
                     setState(() {
                       _iconButton = true;
                     });
