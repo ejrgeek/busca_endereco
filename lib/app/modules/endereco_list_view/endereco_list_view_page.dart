@@ -28,29 +28,33 @@ class _EnderecoListViewPageState
         centerTitle: true,
       ),
       body: Column(
-        children: <Widget>[
-          //
-          ListView.separated(
-            separatorBuilder: (context, index) => Divider(
-              color: Color(0xFF4C9B1C),
-            ),
-            itemCount: homeController.listaEnderecos.length,
-            shrinkWrap: true,
-            itemBuilder: (context, index) => ListTile(
-              title: Text(
-                'CEP: ${homeController.listaEnderecos[index].cep}',
-                style: TextStyle(
-                  fontWeight: FontWeight.bold
+          children: <Widget>[
+            //
+            Container(
+              height: MediaQuery.of(context).size.height - 100,
+              child: ListView.separated(
+                physics: AlwaysScrollableScrollPhysics(),
+                separatorBuilder: (context, index) => Divider(
+                  color: Color(0xFF4C9B1C),
+                ),
+                itemCount: homeController.listaEnderecos.length,
+                shrinkWrap: true,
+                itemBuilder: (context, index) => ListTile(
+                  title: Text(
+                    'CEP: ${homeController.listaEnderecos[index].cep}',
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold
+                    ),
+                  ),
+                  subtitle: Text(
+                    'Logradouro: ${homeController.listaEnderecos[index].logradouro}',
+                  ),
                 ),
               ),
-              subtitle: Text(
-                'Logradouro: ${homeController.listaEnderecos[index].logradouro}',
-              ),
             ),
-          ),
-          //
-        ],
-      ),
+            //
+          ],
+        ),
     );
   }
 }
